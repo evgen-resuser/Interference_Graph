@@ -1,5 +1,8 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.util.Hashtable;
 
 public class Settings extends JPanel {
 
@@ -9,9 +12,11 @@ public class Settings extends JPanel {
     JTextField holesArea = new JTextField("4");
     JTextField IoArea = new JTextField("1");
 
+    JSlider slider = new JSlider(380, 780);
+
     JCheckBox extraGraph = new JCheckBox("Diffraction term graph");
 
-    JLabel waveLengthLabel = new JLabel("λ - Wave Length (nm): ");
+    JLabel waveLengthLabel = new JLabel("λ - Wave Length (nm): 500");
     JLabel distanceLabel = new JLabel("d - Grid Distance (mm): ");
     JLabel holeSizeLabel = new JLabel("a - Hole Size (mm): ");
     JLabel holesNumLabel = new JLabel("N - Holes Count: ");
@@ -24,13 +29,15 @@ public class Settings extends JPanel {
         this.setVisible(true);
         this.setLayout(new GridLayout(6, 2, 5, 5));
 
-        this.setSize(50, 420);
+        this.setSize(50, 430);
+
+        sliderInit();
 
         this.add(holeSizeLabel);
         this.add(holeSizeArea);
 
         this.add(waveLengthLabel);
-        this.add(waveLenArea);
+        this.add(slider);
 
         this.add(distanceLabel);
         this.add(distArea);
@@ -47,10 +54,12 @@ public class Settings extends JPanel {
         button.addActionListener(e -> {
             try {
                 intensityGraph.setA(Double.parseDouble(holeSizeArea.getText()));
-                intensityGraph.setLamb(Double.parseDouble(holeSizeArea.getText()));
+                //intensityGraph.setLamb(Double.parseDouble(holeSizeArea.getText()));
                 intensityGraph.setD(Double.parseDouble(distArea.getText()));
                 intensityGraph.setN(Integer.parseInt(holesArea.getText()));
                 intensityGraph.setIo(Double.parseDouble(IoArea.getText()));
+
+                intensityGraph.setLamb(slider.getValue());
 
                 intensityGraph.setExtraGraph(extraGraph.isSelected());
 
@@ -59,6 +68,17 @@ public class Settings extends JPanel {
                 JOptionPane.showMessageDialog(intensityGraph.settingWindow, "Wrong Input!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+    }
+
+    private void sliderInit(){
+        Hashtable<Integer, JLabel> table = new Hashtable<>();
+        table.put(380, new JLabel("Red"));
+        table.put(780, new JLabel("Violet"));
+        slider.setLabelTable(table);
+        slider.setPaintLabels(true);
+
+        slider.setValue(500);
+        slider.addChangeListener(e -> waveLengthLabel.setText("λ - Wave Length (nm): "+slider.getValue()));
     }
 
 }

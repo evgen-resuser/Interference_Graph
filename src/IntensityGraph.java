@@ -98,7 +98,7 @@ public class IntensityGraph {
         settingWindow.setLayout(new FlowLayout());
 
         settingWindow.add(new Settings(this));
-        settingWindow.setSize(436, 360);
+        settingWindow.setSize(436, 400);
         settingWindow.setVisible(true);
         settingWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         settingWindow.setLocation(610, 0);
@@ -123,6 +123,8 @@ public class IntensityGraph {
         frame.dispose();
         picture.dispose();
         array.clear();
+
+        System.out.println(lamb);
         draw();
     }
 
