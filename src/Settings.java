@@ -12,10 +12,10 @@ public class Settings extends JPanel {
     JCheckBox extraGraph = new JCheckBox("Diffraction term graph");
 
     JLabel waveLengthLabel = new JLabel("λ - Wave Length (nm): ");
-    JLabel distanceLabel = new JLabel("d - Grid Distance (??): ");
-    JLabel holeSizeLabel = new JLabel("a - Hole Size (??): ");
+    JLabel distanceLabel = new JLabel("d - Grid Distance (mm): ");
+    JLabel holeSizeLabel = new JLabel("a - Hole Size (mm): ");
     JLabel holesNumLabel = new JLabel("N - Holes Count: ");
-    JLabel IoLabel = new JLabel("Io - Intensity0 (??): ");
+    JLabel IoLabel = new JLabel("Io - Intensity0: ");
 
     JButton button = new JButton("Create graph");
 

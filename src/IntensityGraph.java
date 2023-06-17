@@ -18,10 +18,10 @@ import static java.lang.Math.*;
 
 @Setter
 public class IntensityGraph {
-    private int N;
-    private double d;
-    private double lamb;
-    private double a;
+    private int N = 4;
+    private double d = 2500;
+    private double lamb = 500;
+    private double a = 500;
     private double Io = 1;
 
     private double maxI = 0;
@@ -34,12 +34,7 @@ public class IntensityGraph {
     JFrame settingWindow = new JFrame("Values Panel");
     JFrame picture = new JFrame("Interference Picture");
 
-
-    public IntensityGraph(int N, double d, double l, double hs) {
-        this.d = d;
-        this.N = N;
-        this.lamb = l;
-        this.a = hs;
+    public IntensityGraph() {
         initSettings();
         draw();
     }
