@@ -103,7 +103,7 @@ public class IntensityGraph {
         settingWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         settingWindow.setLocation(610, 0);
 
-        JLabel img = new JLabel(new ImageIcon("src/scheme.png"));
+        JLabel img = new JLabel(new ImageIcon("src/sprites/scheme.png"));
         JPanel imgFrame = new JPanel();
         imgFrame.add(img);
         settingWindow.add(imgFrame);

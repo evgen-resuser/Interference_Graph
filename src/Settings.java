@@ -1,18 +1,14 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.util.Hashtable;
 
 public class Settings extends JPanel {
 
     JTextField holeSizeArea = new JTextField("500");
-    JTextField waveLenArea = new JTextField("500");
     JTextField distArea = new JTextField("2500");
     JTextField holesArea = new JTextField("4");
     JTextField IoArea = new JTextField("1");
 
-    JSlider slider = new JSlider(380, 780);
+    JSlider slider = new RainbowSlider(380, 780);
 
     JCheckBox extraGraph = new JCheckBox("Diffraction term graph");
 
@@ -54,7 +50,6 @@ public class Settings extends JPanel {
         button.addActionListener(e -> {
             try {
                 intensityGraph.setA(Double.parseDouble(holeSizeArea.getText()));
-                //intensityGraph.setLamb(Double.parseDouble(holeSizeArea.getText()));
                 intensityGraph.setD(Double.parseDouble(distArea.getText()));
                 intensityGraph.setN(Integer.parseInt(holesArea.getText()));
                 intensityGraph.setIo(Double.parseDouble(IoArea.getText()));
@@ -71,12 +66,7 @@ public class Settings extends JPanel {
     }
 
     private void sliderInit(){
-        Hashtable<Integer, JLabel> table = new Hashtable<>();
-        table.put(380, new JLabel("Red"));
-        table.put(780, new JLabel("Violet"));
-        slider.setLabelTable(table);
-        slider.setPaintLabels(true);
-
+        slider.setOpaque(false);
         slider.setValue(500);
         slider.addChangeListener(e -> waveLengthLabel.setText("λ - Wave Length (nm): "+slider.getValue()));
     }
