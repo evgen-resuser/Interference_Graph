@@ -10,7 +10,7 @@ public class Settings extends JPanel {
 
     JSlider slider = new RainbowSlider(380, 780);
 
-    JCheckBox extraGraph = new JCheckBox("Diffraction term graph");
+    JCheckBox extraGraph = new JCheckBox("Diffraction Term Graph");
     JCheckBox enableMyGraphBuilder = new JCheckBox("Custom graph builder (WIP)");
     JCheckBox interPicture = new JCheckBox("Interference Picture");
 
@@ -54,17 +54,6 @@ public class Settings extends JPanel {
 
         button.addActionListener(e -> {
             try {
-//                frames.setA(Double.parseDouble(holeSizeArea.getText()));
-//                frames.setD(Double.parseDouble(distArea.getText()));
-//                frames.setN(Integer.parseInt(holesArea.getText()));
-//                frames.setIo(Double.parseDouble(IoArea.getText()));
-//
-//                frames.setLamb(slider.getValue());
-//
-//                frames.setExtraGraph(extraGraph.isSelected());
-//                frames.setMyGraph(enableMyGraphBuilder.isSelected());
-//                frames.setInterPicture(interPicture.isSelected());
-
                 context.setA(Double.parseDouble(holeSizeArea.getText()));
                 context.setD(Double.parseDouble(distArea.getText()));
                 context.setN(Integer.parseInt(holesArea.getText()));

@@ -20,7 +20,6 @@ public class Frames {
     }
 
     private void draw(){
-
         frame = new JFrame("Intensity Graph");
         frame1 = new JFrame("Custom Graph Builder");
 
@@ -31,7 +30,6 @@ public class Frames {
 
         if (context.isInterPicture()) initPicture();
         if (context.isMyGraph()) initMyGraphBuilder();
-
     }
 
     private void initMyGraphBuilder(){
