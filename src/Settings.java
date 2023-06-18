@@ -22,7 +22,7 @@ public class Settings extends JPanel {
 
     JButton button = new JButton("Create graph");
 
-    public Settings(IntensityGraph intensityGraph){
+    public Settings(Frames frames, Context context){
 
         this.setVisible(true);
         this.setLayout(new GridLayout(7, 2, 5, 5));
@@ -54,20 +54,31 @@ public class Settings extends JPanel {
 
         button.addActionListener(e -> {
             try {
-                intensityGraph.setA(Double.parseDouble(holeSizeArea.getText()));
-                intensityGraph.setD(Double.parseDouble(distArea.getText()));
-                intensityGraph.setN(Integer.parseInt(holesArea.getText()));
-                intensityGraph.setIo(Double.parseDouble(IoArea.getText()));
+//                frames.setA(Double.parseDouble(holeSizeArea.getText()));
+//                frames.setD(Double.parseDouble(distArea.getText()));
+//                frames.setN(Integer.parseInt(holesArea.getText()));
+//                frames.setIo(Double.parseDouble(IoArea.getText()));
+//
+//                frames.setLamb(slider.getValue());
+//
+//                frames.setExtraGraph(extraGraph.isSelected());
+//                frames.setMyGraph(enableMyGraphBuilder.isSelected());
+//                frames.setInterPicture(interPicture.isSelected());
 
-                intensityGraph.setLamb(slider.getValue());
+                context.setA(Double.parseDouble(holeSizeArea.getText()));
+                context.setD(Double.parseDouble(distArea.getText()));
+                context.setN(Integer.parseInt(holesArea.getText()));
+                context.setIo(Double.parseDouble(IoArea.getText()));
 
-                intensityGraph.setExtraGraph(extraGraph.isSelected());
-                intensityGraph.setMyGraph(enableMyGraphBuilder.isSelected());
-                intensityGraph.setInterPicture(interPicture.isSelected());
+                context.setLamb(slider.getValue());
 
-                intensityGraph.reload();
+                context.setExtraGraph(extraGraph.isSelected());
+                context.setMyGraph(enableMyGraphBuilder.isSelected());
+                context.setInterPicture(interPicture.isSelected());
+
+                frames.reload();
             } catch (NumberFormatException exception){
-                JOptionPane.showMessageDialog(intensityGraph.settingWindow, "Wrong Input!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frames.settingWindow, "Wrong Input!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

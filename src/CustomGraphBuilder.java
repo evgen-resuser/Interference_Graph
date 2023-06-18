@@ -3,16 +3,21 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Math.PI;
+import static java.lang.Math.sin;
+
 public class CustomGraphBuilder extends JPanel {
 
-    private IntensityGraph graph;
+    private Frames graph;
     private Map<Integer, Integer> map = new HashMap<>();
+    private Context context;
 
-    public CustomGraphBuilder(IntensityGraph graph){
+    public CustomGraphBuilder(Context context){
         this.setVisible(true);
         this.setSize(650, 600);
 
         this.graph = graph;
+        this.context = context;
     }
 
     private void draw(Graphics g, int n){
@@ -26,7 +31,7 @@ public class CustomGraphBuilder extends JPanel {
         int y3 = 550;
         int y2;
 
-        double max = graph.getMaxI();
+        double max = context.getMaxI();
 
         System.out.println("drawing");
 
@@ -41,7 +46,7 @@ public class CustomGraphBuilder extends JPanel {
 
         x1 = 0;
         for(double i = -1.5708; i < 1.5708; i+=0.005){
-            y1 = (int) (y3-(graph.calculateIntensity(i, n)/max*500));
+            y1 = (int) (y3-(calculateIntensity(i, n)/max*500));
             map.put(x1, y1);
             x1++;
         }
@@ -80,6 +85,30 @@ public class CustomGraphBuilder extends JPanel {
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        draw(g, graph.getN());
+        draw(g, context.getN());
+    }
+
+    public double calculateIntensity(double theta, int holes){
+        double res;
+
+        double lamb = context.getLamb();
+        double d = context.getD();
+
+        double tmp = sinc(PI * context.getA() / lamb * sin(theta));
+        double tmp1 = sin(holes * PI * d / lamb * sin(theta)) /
+                sin (PI * d / lamb * sin(theta));
+
+//        double tmp = sinc(a / d * theta);
+//        double tmp1 = sin(holes * theta) /
+//                sin (theta);
+
+        res = context.getIo() * tmp*tmp * tmp1*tmp1;
+
+        return res ;
+    }
+
+    private static double sinc(double angle){
+        if (angle == 0) return 1;
+        return sin(angle)/angle;
     }
 }

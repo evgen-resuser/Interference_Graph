@@ -4,16 +4,16 @@ import java.util.List;
 
 public class Picture extends JPanel {
 
-    private List<Double> array;
-    private IntensityGraph graph;
+    private final List<Double> array;
+    private final Context context;
 
 
-    public Picture(IntensityGraph graph){
+    public Picture(Context context){
         this.setVisible(true);
         this.setSize(400, 50);
 
-        array = graph.getArray();
-        this.graph = graph;
+        array = context.getArray();
+        this.context = context;
     }
 
     void drawLines(Graphics g){
@@ -27,7 +27,7 @@ public class Picture extends JPanel {
         BasicStroke stroke = new BasicStroke(3f);
 
         int indx = 0;
-        double max = graph.getMaxI();
+        double max = context.getMaxI();
 
         for(double i = -1.5708; i < 1.5708; i+=0.01){
             g2d.drawLine(x1, y1, x2, y2);
