@@ -11,10 +11,12 @@ public class Settings extends JPanel {
     JSlider slider = new RainbowSlider(380, 780);
 
     JCheckBox extraGraph = new JCheckBox("Diffraction term graph");
+    JCheckBox enableMyGraphBuilder = new JCheckBox("Custom graph builder (WIP)");
+    JCheckBox interPicture = new JCheckBox("Interference Picture");
 
     JLabel waveLengthLabel = new JLabel("λ - Wave Length (nm): 500");
-    JLabel distanceLabel = new JLabel("d - Grid Distance (mm): ");
-    JLabel holeSizeLabel = new JLabel("a - Hole Size (mm): ");
+    JLabel distanceLabel = new JLabel("d - Grid Distance: ");
+    JLabel holeSizeLabel = new JLabel("a - Hole Size: ");
     JLabel holesNumLabel = new JLabel("N - Holes Count: ");
     JLabel IoLabel = new JLabel("Io - Intensity0: ");
 
@@ -23,7 +25,7 @@ public class Settings extends JPanel {
     public Settings(IntensityGraph intensityGraph){
 
         this.setVisible(true);
-        this.setLayout(new GridLayout(6, 2, 5, 5));
+        this.setLayout(new GridLayout(7, 2, 5, 5));
 
         this.setSize(50, 430);
 
@@ -45,6 +47,9 @@ public class Settings extends JPanel {
         this.add(IoArea);
 
         this.add(extraGraph);
+        this.add(interPicture);
+        this.add(enableMyGraphBuilder);
+
         this.add(button);
 
         button.addActionListener(e -> {
@@ -57,6 +62,8 @@ public class Settings extends JPanel {
                 intensityGraph.setLamb(slider.getValue());
 
                 intensityGraph.setExtraGraph(extraGraph.isSelected());
+                intensityGraph.setMyGraph(enableMyGraphBuilder.isSelected());
+                intensityGraph.setInterPicture(interPicture.isSelected());
 
                 intensityGraph.reload();
             } catch (NumberFormatException exception){

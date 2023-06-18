@@ -14,6 +14,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO decompose
+
 import static java.lang.Math.*;
 
 @Setter
@@ -29,8 +31,11 @@ public class IntensityGraph {
     private List<Double> array = new ArrayList<>();
 
     private boolean extraGraph = false;
+    private boolean myGraph = false;
+    private boolean interPicture = false;
 
     JFrame frame;
+    JFrame frame1;
     JFrame settingWindow = new JFrame("Values Panel");
     JFrame picture = new JFrame("Interference Picture");
 
@@ -44,6 +49,7 @@ public class IntensityGraph {
         maxI = 0;
 
         frame = new JFrame("Intensity Graph");
+        frame1 = new JFrame("Custom Graph Builder");
 
         XYSeries series = new XYSeries(0);
         XYSeries series1 = new XYSeries(1);
@@ -91,22 +97,33 @@ public class IntensityGraph {
         frame.setSize(600,500);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        initPicture();
+        if (interPicture) initPicture();
+        if (myGraph) initMyGraphBuilder();
+
+    }
+
+    private void initMyGraphBuilder(){
+        CustomGraphBuilder customGraphBuilder = new CustomGraphBuilder(this);
+        frame1.getContentPane().add(customGraphBuilder);
+        frame1.setVisible(true);
+        frame1.setSize(700,605);
+        frame1.setResizable(false);
+        frame1.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
     }
 
     private void initSettings(){
         settingWindow.setLayout(new FlowLayout());
 
         settingWindow.add(new Settings(this));
-        settingWindow.setSize(436, 400);
+        settingWindow.setSize(436, 260);
         settingWindow.setVisible(true);
         settingWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         settingWindow.setLocation(610, 0);
-
-        JLabel img = new JLabel(new ImageIcon("src/sprites/scheme.png"));
-        JPanel imgFrame = new JPanel();
-        imgFrame.add(img);
-        settingWindow.add(imgFrame);
+//
+//        JLabel img = new JLabel(new ImageIcon("src/sprites/scheme.png"));
+//        JPanel imgFrame = new JPanel();
+//        imgFrame.add(img);
+//        settingWindow.add(imgFrame);
     }
 
     private void initPicture(){
@@ -120,16 +137,15 @@ public class IntensityGraph {
     }
 
     public void reload(){
+        frame1.dispose();
         frame.dispose();
         picture.dispose();
         array.clear();
-
-        System.out.println(lamb);
         draw();
     }
 
 
-    private double calculateIntensity(double theta, int holes){
+    public double calculateIntensity(double theta, int holes){
         double res;
 
         double tmp = sinc(PI * a / lamb * sin(theta));
@@ -157,5 +173,9 @@ public class IntensityGraph {
 
     public double getMaxI() {
         return maxI;
+    }
+
+    public int getN() {
+        return N;
     }
 }

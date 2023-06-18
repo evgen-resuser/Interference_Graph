@@ -26,12 +26,13 @@ public class RainbowSlider extends JSlider {
         super.paintComponent(g);
     }
 
-    class RainbowSliderUI extends BasicSliderUI {
+    private static class RainbowSliderUI extends BasicSliderUI {
 
         public RainbowSliderUI(JSlider slider){
             super(slider);
         }
 
+        @Override
         public void paintThumb(Graphics g){
             Image thumbIcon = null;
 
