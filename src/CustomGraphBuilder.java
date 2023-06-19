@@ -3,20 +3,15 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.sin;
-
 public class CustomGraphBuilder extends JPanel {
 
-    private Frames graph;
-    private Map<Integer, Integer> map = new HashMap<>();
-    private Context context;
+    private final Map<Integer, Integer> map = new HashMap<>();
+    private final Context context;
 
     public CustomGraphBuilder(Context context){
         this.setVisible(true);
         this.setSize(650, 600);
 
-        this.graph = graph;
         this.context = context;
     }
 
@@ -33,8 +28,6 @@ public class CustomGraphBuilder extends JPanel {
 
         double max = context.getMaxI();
 
-        System.out.println("drawing");
-
         BasicStroke stroke = new BasicStroke(1f);
 
         drawAxes(g2d);
@@ -46,14 +39,12 @@ public class CustomGraphBuilder extends JPanel {
 
         x1 = 0;
         for(double i = -1.5708; i < 1.5708; i+=0.005){
-            y1 = (int) (y3-(calculateIntensity(i, n)/max*500));
+            y1 = (int) (y3-(Functions.calculateIntensity(i, n, context)/max*500));
             map.put(x1, y1);
             x1++;
         }
 
         int len = map.size();
-        System.out.println(len);
-
         x1 = 0;
         y1 = map.get(x1);
         for (int i = 1; i != len; i++){
@@ -88,27 +79,4 @@ public class CustomGraphBuilder extends JPanel {
         draw(g, context.getN());
     }
 
-    public double calculateIntensity(double theta, int holes){
-        double res;
-
-        double lamb = context.getLamb();
-        double d = context.getD();
-
-        double tmp = sinc(PI * context.getA() / lamb * sin(theta));
-        double tmp1 = sin(holes * PI * d / lamb * sin(theta)) /
-                sin (PI * d / lamb * sin(theta));
-
-//        double tmp = sinc(a / d * theta);
-//        double tmp1 = sin(holes * theta) /
-//                sin (theta);
-
-        res = context.getIo() * tmp*tmp * tmp1*tmp1;
-
-        return res ;
-    }
-
-    private static double sinc(double angle){
-        if (angle == 0) return 1;
-        return sin(angle)/angle;
-    }
 }

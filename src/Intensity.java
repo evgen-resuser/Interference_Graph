@@ -10,7 +10,6 @@ import org.jfree.data.xy.XYSeriesCollection;
 import java.awt.*;
 
 import static java.lang.Math.*;
-import static java.lang.Math.sin;
 
 public class Intensity {
     private Context context;
@@ -36,7 +35,7 @@ public class Intensity {
         for(double i = -1.5708; i < 1.5708; i+=0.01){
 
             //tmp = calculateIntensity(i, N);
-            tmp = calculateIntensity(i, context.getN());
+            tmp = Functions.calculateIntensity(i, context.getN(), context);
 
 //            array.add(tmp);
 //            maxI = max(tmp, maxI);
@@ -46,7 +45,7 @@ public class Intensity {
 //            if (extraGraph) series1.add(i, calculateIntensity(i, 1) * N*N);
 //            series.add(i, tmp);
             int n = context.getN();
-            if (context.isExtraGraph()) series1.add(i, calculateIntensity(i, 1) * n*n);
+            if (context.isExtraGraph()) series1.add(i, Functions.calculateIntensity(i, 1, context) * n*n);
             series.add(i, tmp);
 
             //if (extraGraph) series1.add(i, countDiffTerm(i));
@@ -71,30 +70,6 @@ public class Intensity {
         plot.setRenderer(renderer);
 
         chartPanel = new ChartPanel(chart);
-    }
-
-    public double calculateIntensity(double theta, int holes){
-        double res;
-
-        double lamb = context.getLamb();
-        double d = context.getD();
-
-        double tmp = sinc(PI * context.getA() / lamb * sin(theta));
-        double tmp1 = sin(holes * PI * d / lamb * sin(theta)) /
-                sin (PI * d / lamb * sin(theta));
-
-//        double tmp = sinc(a / d * theta);
-//        double tmp1 = sin(holes * theta) /
-//                sin (theta);
-
-        res = context.getIo() * tmp*tmp * tmp1*tmp1;
-
-        return res ;
-    }
-
-    private static double sinc(double angle){
-        if (angle == 0) return 1;
-        return sin(angle)/angle;
     }
 
     public ChartPanel getChartPanel() {
