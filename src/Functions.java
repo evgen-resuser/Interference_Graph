@@ -24,7 +24,7 @@ public class Functions {
 
     private static double sinc(double angle){
         if (angle == 0) return 1;
-        return sin(angle)/angle;
+        return sin(angle/**PI*/)/(angle/**PI*/);
     }
 
 }

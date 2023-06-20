@@ -2,15 +2,17 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class RainbowSlider extends JSlider {
     private Image img = null;
 
     public RainbowSlider(int min, int max){
         try {
-            img = ImageIO.read(new File("src/sprites/spectre.png"));
+            InputStream stream = getClass().getResourceAsStream("sprites/spectre.png");
+            assert stream != null;
+            img = ImageIO.read(stream);
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -18,6 +20,7 @@ public class RainbowSlider extends JSlider {
         super.setMinimum(min);
         super.setPaintTrack(false);
         super.setUI(new RainbowSliderUI(this));
+        super.setOpaque(false);
     }
 
     @Override
@@ -37,7 +40,9 @@ public class RainbowSlider extends JSlider {
             Image thumbIcon = null;
 
             try {
-                thumbIcon = ImageIO.read(new File("src/sprites/thumb.png"));
+                InputStream stream = getClass().getResourceAsStream("sprites/thumb.png");
+                assert stream != null;
+                thumbIcon = ImageIO.read(stream);
             } catch (IOException e){
                 e.printStackTrace();
             }

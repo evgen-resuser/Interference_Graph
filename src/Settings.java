@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 
+import static java.lang.Math.abs;
+
 public class Settings extends JPanel {
 
     JTextField holeSizeArea = new JTextField("500");
@@ -54,10 +56,13 @@ public class Settings extends JPanel {
 
         button.addActionListener(e -> {
             try {
-                context.setA(Double.parseDouble(holeSizeArea.getText()));
-                context.setD(Double.parseDouble(distArea.getText()));
-                context.setN(Integer.parseInt(holesArea.getText()));
-                context.setIo(Double.parseDouble(IoArea.getText()));
+                if (abs(Double.parseDouble(distArea.getText())) <= abs(Double.parseDouble(holeSizeArea.getText())))
+                    throw new NumberFormatException();
+
+                context.setA(abs(Double.parseDouble(holeSizeArea.getText())));
+                context.setD(abs(Double.parseDouble(distArea.getText())));
+                context.setN(abs(Integer.parseInt(holesArea.getText())));
+                context.setIo(abs(Double.parseDouble(IoArea.getText())));
 
                 context.setLamb(slider.getValue());
 
@@ -73,7 +78,6 @@ public class Settings extends JPanel {
     }
 
     private void sliderInit(){
-        slider.setOpaque(false);
         slider.setValue(500);
         slider.addChangeListener(e -> waveLengthLabel.setText("λ - Wave Length (nm): "+slider.getValue()));
     }

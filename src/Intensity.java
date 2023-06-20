@@ -34,22 +34,14 @@ public class Intensity {
 
         for(double i = -1.5708; i < 1.5708; i+=0.01){
 
-            //tmp = calculateIntensity(i, N);
             tmp = Functions.calculateIntensity(i, context.getN(), context);
 
-//            array.add(tmp);
-//            maxI = max(tmp, maxI);
             context.getArray().add(tmp);
             context.setMaxI(max(tmp, context.getMaxI()));
 
-//            if (extraGraph) series1.add(i, calculateIntensity(i, 1) * N*N);
-//            series.add(i, tmp);
             int n = context.getN();
             if (context.isExtraGraph()) series1.add(i, Functions.calculateIntensity(i, 1, context) * n*n);
             series.add(i, tmp);
-
-            //if (extraGraph) series1.add(i, countDiffTerm(i));
-            //series.add(i, countIntensity(PI * d / lamb * sin(i)));
         }
 
         JFreeChart chart = ChartFactory

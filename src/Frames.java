@@ -1,7 +1,6 @@
 import lombok.Setter;
 
 import javax.swing.*;
-
 import java.awt.*;
 
 @Setter
@@ -21,18 +20,22 @@ public class Frames {
 
     private void draw(){
         frame = new JFrame("Intensity Graph");
-        frame1 = new JFrame("Custom Graph Builder");
 
         frame.add(new Intensity(context).getChartPanel());
         frame.setVisible(true);
         frame.setSize(600,500);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        if (context.isInterPicture()) initPicture();
-        if (context.isMyGraph()) initMyGraphBuilder();
+        if (context.isInterPicture()) {
+            initPicture();
+        }
+        if (context.isMyGraph()) {
+            initMyGraphBuilder();
+        }
     }
 
     private void initMyGraphBuilder(){
+        frame1 = new JFrame("Custom Graph Builder");
         CustomGraphBuilder customGraphBuilder = new CustomGraphBuilder(context);
         frame1.getContentPane().add(customGraphBuilder);
         frame1.setVisible(true);
@@ -62,9 +65,13 @@ public class Frames {
     }
 
     public void reload(){
-        frame1.dispose();
+        if (frame1 != null) {
+            frame1.dispose();
+        }
         frame.dispose();
-        picture.dispose();
+        if (picture != null) {
+            picture.dispose();
+        }
         context.getArray().clear();
         draw();
     }
